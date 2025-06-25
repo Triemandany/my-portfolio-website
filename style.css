@@ -56,6 +56,7 @@ body {
   animation: fadeInUp 1s ease-out 0.6s both;
   border-radius: 4px;
 }
+
 .cta-button:hover {
   background-color: #f0f0f0;
   transform: translateY(-2px);
@@ -112,6 +113,9 @@ body {
   color: #ccc;
   line-height: 1.4;
 }
+.credential-item {
+  margin-bottom: 24px;
+}
 
 /* Portfolio Section */
 .portfolio {
@@ -137,11 +141,20 @@ body {
   border: 1px solid #333;
   border-radius: 8px;
 }
+.portfolio-item a h3,
+.portfolio-item a p {
+  color: white;
+  text-decoration: none;
+}
+.portfolio-item a:hover h3,
+.portfolio-item a:hover p {
+  color: #ffffff;
+}
 .portfolio-item:hover {
   transform: translateY(-10px);
   background-color: #333;
-  border-color: #0ea5e9;
-  color: rgba(0, 174, 255, 0.9);
+  border-color: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
 }
 .portfolio-item h3 {
   font-size: 1.3rem;
@@ -186,8 +199,8 @@ body {
 }
 .work-item {
   background-color: #2a2a2b;
-  border: 1px solid #333;
-  border-radius: 8px;
+  border: 10px solid #333;
+  border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -298,6 +311,7 @@ footer {
   .quote blockquote {
     font-size: 1.5rem;
   }
+  
   .work-grid {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
