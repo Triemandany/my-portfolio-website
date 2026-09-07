@@ -15,16 +15,695 @@
         content="Tri Emandany — Documentation Portfolio"
     >
 
+    <meta
+        name="author"
+        content="Tri Emandany"
+    >
+
     <title>
         Documentation Portfolio — Tri Emandany
     </title>
 
-    <link rel="stylesheet" href="style.css">
+
+    <!-- GOOGLE FONTS -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- MAIN CSS -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <!-- =====================================================
+         DOCUMENTATION ALBUM STYLE
+         Khusus halaman ini.
+         Tidak mengubah CSS global.
+         ===================================================== -->
+
+    <style>
+
+        /* =====================================================
+           ALBUM CONTAINER
+           ===================================================== */
+
+        .documentation-albums {
+            padding-bottom: 120px;
+        }
+
+
+        .documentation-albums-intro {
+            margin-bottom: 45px;
+        }
+
+
+        .documentation-albums-intro p {
+            max-width: 600px;
+            color: var(--muted);
+            font-size: .85rem;
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           ALBUM
+           ===================================================== */
+
+        .photo-album {
+            position: relative;
+
+            margin-bottom: 35px;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                var(--radius);
+
+            overflow: hidden;
+
+            background:
+                var(--surface);
+
+            transition:
+                border-color .35s ease,
+                transform .35s ease,
+                box-shadow .35s ease;
+        }
+
+
+        .photo-album:hover {
+            border-color:
+                rgba(255,255,255,.18);
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,.22);
+        }
+
+
+        /* =====================================================
+           ALBUM COVER
+           ===================================================== */
+
+        .album-cover {
+            position: relative;
+
+            width: 100%;
+
+            min-height: 440px;
+
+            overflow: hidden;
+
+            cursor: pointer;
+        }
+
+
+        .album-slideshow {
+            position: absolute;
+
+            inset: 0;
+        }
+
+
+        .album-slide {
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: 0;
+
+            transform:
+                scale(1.04);
+
+            transition:
+                opacity 1.2s ease,
+                transform 10s ease;
+        }
+
+
+        .album-slide.active {
+            opacity: 1;
+
+            transform:
+                scale(1);
+        }
+
+
+        /* =====================================================
+           DARK GRADIENT
+           ===================================================== */
+
+        .album-overlay {
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(0,0,0,.92) 0%,
+                    rgba(0,0,0,.45) 45%,
+                    rgba(0,0,0,.05) 100%
+                );
+
+            z-index: 2;
+        }
+
+
+        /* =====================================================
+           ALBUM CONTENT
+           ===================================================== */
+
+        .album-content {
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            z-index: 3;
+
+            padding:
+                35px;
+        }
+
+
+        .album-meta {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .album-number {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 34px;
+            height: 34px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.25);
+
+            border-radius: 50%;
+
+            color:
+                var(--text);
+
+            font-size: .65rem;
+
+            font-weight: 700;
+        }
+
+
+        .album-category {
+            color:
+                rgba(255,255,255,.65);
+
+            font-size: .65rem;
+
+            font-weight: 700;
+
+            letter-spacing:
+                .12em;
+        }
+
+
+        .album-content h2 {
+            margin:
+                0 0 8px;
+
+            color:
+                #fff;
+
+            font-size:
+                clamp(1.7rem, 4vw, 3rem);
+
+            line-height:
+                1.05;
+        }
+
+
+        .album-content p {
+            max-width:
+                550px;
+
+            margin:
+                0;
+
+            color:
+                rgba(255,255,255,.72);
+
+            font-size:
+                .78rem;
+
+            line-height:
+                1.7;
+        }
+
+
+        /* =====================================================
+           ALBUM ACTION
+           ===================================================== */
+
+        .album-action {
+            position: absolute;
+
+            right: 30px;
+            bottom: 30px;
+
+            z-index: 4;
+
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border:
+                1px solid
+                rgba(255,255,255,.25);
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(0,0,0,.28);
+
+            color:
+                #fff;
+
+            font-size:
+                1rem;
+
+            backdrop-filter:
+                blur(12px);
+
+            transition:
+                background .25s ease,
+                transform .25s ease;
+        }
+
+
+        .photo-album:hover .album-action {
+            background:
+                rgba(255,255,255,.1);
+
+            transform:
+                rotate(-8deg);
+        }
+
+
+        /* =====================================================
+           SLIDE INDICATOR
+           ===================================================== */
+
+        .album-indicators {
+            position: absolute;
+
+            left: 35px;
+            right: 35px;
+            bottom: 18px;
+
+            z-index: 5;
+
+            display: flex;
+
+            gap: 5px;
+        }
+
+
+        .album-indicator {
+            height: 2px;
+
+            flex: 1;
+
+            background:
+                rgba(255,255,255,.25);
+
+            overflow: hidden;
+        }
+
+
+        .album-indicator span {
+            display: block;
+
+            width: 0;
+            height: 100%;
+
+            background:
+                #fff;
+        }
+
+
+        .album-indicator.active span {
+            animation:
+                albumProgress 10s linear forwards;
+        }
+
+
+        @keyframes albumProgress {
+
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+
+        }
+
+
+        /* =====================================================
+           ALBUM GALLERY
+           ===================================================== */
+
+        .album-gallery {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 10px;
+
+            max-height: 0;
+
+            padding:
+                0 25px;
+
+            overflow: hidden;
+
+            opacity: 0;
+
+            transition:
+                max-height .6s ease,
+                opacity .35s ease,
+                padding .6s ease;
+        }
+
+
+        .photo-album.open
+        .album-gallery {
+
+            max-height:
+                1000px;
+
+            padding:
+                25px;
+
+            opacity:
+                1;
+        }
+
+
+        .album-gallery-item {
+            position: relative;
+
+            aspect-ratio:
+                4 / 3;
+
+            overflow: hidden;
+
+            border-radius:
+                var(--radius-sm);
+
+            background:
+                var(--surface-soft);
+        }
+
+
+        .album-gallery-item img {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition:
+                transform .5s ease;
+        }
+
+
+        .album-gallery-item:hover img {
+            transform:
+                scale(1.06);
+        }
+
+
+        /* =====================================================
+           EMPTY PBL IMAGE
+           ===================================================== */
+
+        .album-placeholder {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 200px;
+
+            border:
+                1px dashed
+                var(--border);
+
+            border-radius:
+                var(--radius-sm);
+
+            color:
+                var(--muted);
+
+            font-size:
+                .75rem;
+
+            text-align:
+                center;
+
+            padding:
+                25px;
+        }
+
+
+        /* =====================================================
+           TABLET
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .album-cover {
+                min-height:
+                    400px;
+            }
+
+
+            .album-gallery {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .documentation-albums {
+                padding-bottom:
+                    80px;
+            }
+
+
+            .album-cover {
+                min-height:
+                    430px;
+            }
+
+
+            .album-content {
+                padding:
+                    25px;
+            }
+
+
+            .album-content h2 {
+                font-size:
+                    1.8rem;
+
+                max-width:
+                    80%;
+            }
+
+
+            .album-content p {
+                max-width:
+                    85%;
+            }
+
+
+            .album-action {
+                right:
+                    22px;
+
+                bottom:
+                    28px;
+            }
+
+
+            .album-indicators {
+                left:
+                    25px;
+
+                right:
+                    25px;
+
+                bottom:
+                    15px;
+            }
+
+
+            .album-gallery {
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap:
+                    8px;
+
+                padding:
+                    0 15px;
+            }
+
+
+            .photo-album.open
+            .album-gallery {
+                padding:
+                    15px;
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+           ===================================================== */
+
+        @media (max-width: 420px) {
+
+            .album-cover {
+                min-height:
+                    380px;
+            }
+
+
+            .album-content {
+                padding:
+                    20px;
+            }
+
+
+            .album-content h2 {
+                font-size:
+                    1.5rem;
+            }
+
+
+            .album-gallery {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+           ===================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .album-slide {
+                transition:
+                    opacity .3s ease;
+
+                transform:
+                    none;
+            }
+
+
+            .album-slide.active {
+                transform:
+                    none;
+            }
+
+
+            .album-indicator.active span {
+                animation:
+                    none;
+
+                width:
+                    100%;
+            }
+
+
+            .photo-album,
+            .album-gallery-item img,
+            .album-action {
+                transition:
+                    none;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 
 <body>
+
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
 
 <header class="site-header">
 
@@ -33,8 +712,9 @@
         <a
             href="index.html"
             class="logo"
+            aria-label="Tri Emandany Home"
         >
-            TE.
+            TE<span>.</span>
         </a>
 
 
@@ -58,24 +738,63 @@
                 Home
             </a>
 
+
             <a href="index.html#about">
                 About
             </a>
+
 
             <a href="index.html#experience">
                 Experience
             </a>
 
+
             <a href="index.html#projects">
                 Projects
             </a>
 
-            <a
-                href="documentation.html"
-                class="active"
-            >
-                Portfolio
-            </a>
+
+            <!-- PORTFOLIO -->
+
+            <div class="nav-dropdown">
+
+                <button
+                    class="nav-dropdown-button"
+                    type="button"
+                    aria-expanded="false"
+                >
+                    Portfolio
+
+                    <span>
+                        ⌄
+                    </span>
+
+                </button>
+
+
+                <div class="nav-dropdown-menu">
+
+                    <a href="design.html">
+                        Design
+                    </a>
+
+
+                    <a href="video.html">
+                        Video
+                    </a>
+
+
+                    <a
+                        href="documentation.html"
+                        class="active"
+                    >
+                        Documentation
+                    </a>
+
+                </div>
+
+            </div>
+
 
             <a href="index.html#contact">
                 Contact
@@ -88,7 +807,17 @@
 </header>
 
 
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
 <main>
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
 
     <section class="portfolio-page-header">
 
@@ -98,16 +827,23 @@
                 PORTFOLIO / DOCUMENTATION
             </p>
 
+
             <h1>
+
                 Capturing moments
-                <em>that matter.</em>
+
+                <em>
+                    that matter.
+                </em>
+
             </h1>
 
+
             <p>
-                A collection of photography,
-                event documentation,
-                institutional activities,
-                and behind-the-scenes moments.
+                A visual archive of events,
+                professional experiences,
+                and academic projects captured
+                through photography.
             </p>
 
         </div>
@@ -115,179 +851,801 @@
     </section>
 
 
-    <section class="section documentation-gallery">
+
+    <!-- =====================================================
+         ALBUMS
+         ===================================================== -->
+
+    <section class="section documentation-albums">
 
         <div class="container">
 
-            <div class="gallery-grid documentation-grid">
+
+            <div class="documentation-albums-intro">
+
+                <p class="section-label">
+                    PHOTO ALBUMS
+                </p>
 
 
-                <!-- PHOTO 01 -->
+                <p>
+                    Explore selected documentation
+                    from professional, freelance,
+                    and academic experiences.
+                </p>
 
-                <article class="gallery-item">
+            </div>
 
-                    <div class="gallery-image">
+
+
+            <!-- =================================================
+                 ALBUM 01 — TEENX
+                 ================================================= -->
+
+            <article
+                class="photo-album"
+                data-album="teenx"
+            >
+
+                <div class="album-cover">
+
+                    <div class="album-slideshow">
+
+                        <img
+                            class="album-slide active"
+                            src="assets/documentation/doc_teenx1.png"
+                            alt="TeenX documentation"
+                        >
+
+                    </div>
+
+
+                    <div class="album-overlay"></div>
+
+
+                    <div class="album-content">
+
+                        <div class="album-meta">
+
+                            <span class="album-number">
+                                01
+                            </span>
+
+                            <span class="album-category">
+                                FREELANCE / IT SUPPORT
+                            </span>
+
+                        </div>
+
+
+                        <h2>
+                            TeenX Documentation
+                        </h2>
+
+
+                        <p>
+                            Documentation of activities,
+                            customer support, and work
+                            experiences during freelance
+                            activities at TeenX.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="album-action"
+                        type="button"
+                        aria-label="Open TeenX album"
+                    >
+                        ↗
+                    </button>
+
+
+                    <div class="album-indicators">
+
+                        <div class="album-indicator active">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="album-gallery">
+
+                    <div class="album-gallery-item">
+
+                        <img
+                            src="assets/documentation/doc_teenx1.png"
+                            alt="TeenX documentation"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 ALBUM 02 — INTERNSHIP
+                 ================================================= -->
+
+            <article
+                class="photo-album"
+                data-album="intern"
+            >
+
+                <div class="album-cover">
+
+                    <div class="album-slideshow">
+
+
+                        <img
+                            class="album-slide active"
+                            src="assets/documentation/doc_event1.png"
+                            alt="Internship event documentation"
+                        >
+
+
+                        <img
+                            class="album-slide"
+                            src="assets/documentation/doc_instancion1.png"
+                            alt="Internship institutional documentation"
+                        >
+
+
+                        <img
+                            class="album-slide"
+                            src="assets/documentation/doc_photography1.png"
+                            alt="Internship photography documentation"
+                        >
+
+
+                        <img
+                            class="album-slide"
+                            src="assets/documentation/doc_production1.png"
+                            alt="Internship production documentation"
+                        >
+
+
+                        <img
+                            class="album-slide"
+                            src="assets/documentation/doc_production2.png"
+                            alt="Internship production activity"
+                        >
+
+                    </div>
+
+
+                    <div class="album-overlay"></div>
+
+
+                    <div class="album-content">
+
+                        <div class="album-meta">
+
+                            <span class="album-number">
+                                02
+                            </span>
+
+                            <span class="album-category">
+                                INTERNSHIP
+                            </span>
+
+                        </div>
+
+
+                        <h2>
+                            Internship Documentation
+                        </h2>
+
+
+                        <p>
+                            Photography, event coverage,
+                            production activities, and
+                            documentation during internship
+                            experience.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="album-action"
+                        type="button"
+                        aria-label="Open internship album"
+                    >
+                        ↗
+                    </button>
+
+
+                    <div class="album-indicators">
+
+                        <div class="album-indicator active">
+                            <span></span>
+                        </div>
+
+                        <div class="album-indicator">
+                            <span></span>
+                        </div>
+
+                        <div class="album-indicator">
+                            <span></span>
+                        </div>
+
+                        <div class="album-indicator">
+                            <span></span>
+                        </div>
+
+                        <div class="album-indicator">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="album-gallery">
+
+
+                    <div class="album-gallery-item">
+
+                        <img
+                            src="assets/documentation/doc_event1.png"
+                            alt="Internship event documentation"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="album-gallery-item">
+
+                        <img
+                            src="assets/documentation/doc_instancion1.png"
+                            alt="Internship institutional documentation"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="album-gallery-item">
+
+                        <img
+                            src="assets/documentation/doc_photography1.png"
+                            alt="Internship photography documentation"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="album-gallery-item">
+
+                        <img
+                            src="assets/documentation/doc_production1.png"
+                            alt="Internship production documentation"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                    <div class="album-gallery-item">
+
+                        <img
+                            src="assets/documentation/doc_production2.png"
+                            alt="Internship production activity"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 ALBUM 03 — PBL
+                 ================================================= -->
+
+            <article
+                class="photo-album"
+                data-album="pbl"
+            >
+
+                <div class="album-cover">
+
+                    <div class="album-slideshow">
 
                         <!--
-                            Replace the src below
-                            with your documentation image.
+                            GANTI FOTO PBL DI BAWAH
+                            SESUAI NAMA FILE FOTO KAMU.
                         -->
 
                         <img
-                            src="assets/documentation/documentation-01.jpg"
-                            alt="Documentation project 01"
-                            loading="lazy"
+                            class="album-slide active"
+                            src="assets/documentation/pbl_01.png"
+                            alt="PBL documentation"
                         >
-
-                    </div>
-
-                    <div class="gallery-info">
-
-                        <span>
-                            EVENT DOCUMENTATION
-                        </span>
-
-                        <h2>
-                            Documentation Project
-                        </h2>
-
-                        <p>
-                            Event / Location / Year
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- PHOTO 02 -->
-
-                <article class="gallery-item">
-
-                    <div class="gallery-image">
 
                         <img
-                            src="assets/documentation/documentation-02.jpg"
-                            alt="Documentation project 02"
-                            loading="lazy"
+                            class="album-slide"
+                            src="assets/documentation/pbl_02.png"
+                            alt="PBL documentation"
                         >
-
-                    </div>
-
-                    <div class="gallery-info">
-
-                        <span>
-                            PHOTOGRAPHY
-                        </span>
-
-                        <h2>
-                            Documentation Project
-                        </h2>
-
-                        <p>
-                            Event / Location / Year
-                        </p>
-
-                    </div>
-
-                </article>
-
-
-
-                <!-- PHOTO 03 -->
-
-                <article class="gallery-item">
-
-                    <div class="gallery-image">
 
                         <img
-                            src="assets/documentation/documentation-03.jpg"
-                            alt="Documentation project 03"
-                            loading="lazy"
+                            class="album-slide"
+                            src="assets/documentation/pbl_03.png"
+                            alt="PBL documentation"
                         >
 
                     </div>
 
-                    <div class="gallery-info">
 
-                        <span>
-                            INSTITUTIONAL
-                        </span>
+                    <div class="album-overlay"></div>
+
+
+                    <div class="album-content">
+
+                        <div class="album-meta">
+
+                            <span class="album-number">
+                                03
+                            </span>
+
+                            <span class="album-category">
+                                ACADEMIC / PBL
+                            </span>
+
+                        </div>
+
 
                         <h2>
-                            Documentation Project
+                            PBL Documentation
                         </h2>
 
+
                         <p>
-                            Event / Location / Year
+                            Documentation from academic
+                            projects, production processes,
+                            and project activities.
                         </p>
 
                     </div>
 
-                </article>
+
+                    <button
+                        class="album-action"
+                        type="button"
+                        aria-label="Open PBL album"
+                    >
+                        ↗
+                    </button>
 
 
+                    <div class="album-indicators">
 
-                <!-- PHOTO 04 -->
+                        <div class="album-indicator active">
+                            <span></span>
+                        </div>
 
-                <article class="gallery-item">
+                        <div class="album-indicator">
+                            <span></span>
+                        </div>
 
-                    <div class="gallery-image">
+                        <div class="album-indicator">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="album-gallery">
+
+
+                    <div class="album-gallery-item">
 
                         <img
-                            src="assets/documentation/documentation-04.jpg"
-                            alt="Documentation project 04"
+                            src="assets/documentation/pbl_01.png"
+                            alt="PBL documentation"
                             loading="lazy"
                         >
 
                     </div>
 
-                    <div class="gallery-info">
 
-                        <span>
-                            BEHIND THE SCENES
-                        </span>
+                    <div class="album-gallery-item">
 
-                        <h2>
-                            Documentation Project
-                        </h2>
-
-                        <p>
-                            Event / Location / Year
-                        </p>
+                        <img
+                            src="assets/documentation/pbl_02.png"
+                            alt="PBL documentation"
+                            loading="lazy"
+                        >
 
                     </div>
 
-                </article>
 
-            </div>
+                    <div class="album-gallery-item">
+
+                        <img
+                            src="assets/documentation/pbl_03.png"
+                            alt="PBL documentation"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+
+                </div>
+
+            </article>
+
 
         </div>
 
     </section>
 
+
 </main>
 
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
 
 <footer>
 
     <div class="container footer-content">
 
         <p>
-            © 2026 Tri Emandany.
+            © 2026 Tri Emandany. All rights reserved.
         </p>
-
-        <a href="index.html">
-            ← Back to Home
-        </a>
 
     </div>
 
 </footer>
 
 
+
+<!-- =========================================================
+     FLOATING BACK TO HOME
+     ========================================================= -->
+
+<a
+    href="index.html"
+    class="floating-navigation floating-home-only"
+    aria-label="Back to Home"
+    title="Back to Home"
+>
+
+    <span class="floating-nav-button">
+
+        <span class="floating-nav-icon">
+            ←
+        </span>
+
+        <span>
+            Back to Home
+        </span>
+
+    </span>
+
+</a>
+
+
+
+<!-- =========================================================
+     MAIN JAVASCRIPT
+     ========================================================= -->
+
 <script src="main.js"></script>
+
+
+
+<!-- =========================================================
+     ALBUM SLIDESHOW SCRIPT
+     ========================================================= -->
+
+<script>
+
+(function () {
+
+    "use strict";
+
+
+    const albums =
+        document.querySelectorAll(
+            ".photo-album"
+        );
+
+
+    albums.forEach(function (album) {
+
+        const slides =
+            album.querySelectorAll(
+                ".album-slide"
+            );
+
+
+        const indicators =
+            album.querySelectorAll(
+                ".album-indicator"
+            );
+
+
+        const cover =
+            album.querySelector(
+                ".album-cover"
+            );
+
+
+        const action =
+            album.querySelector(
+                ".album-action"
+            );
+
+
+        let current =
+            0;
+
+
+        let timer =
+            null;
+
+
+        /*
+         * Jika hanya mempunyai satu foto,
+         * tidak perlu melakukan slideshow.
+         */
+
+        if (slides.length <= 1) {
+
+            return;
+
+        }
+
+
+        /*
+         * Fungsi untuk mengganti foto.
+         */
+
+        function showSlide(index) {
+
+            slides.forEach(function (
+                slide,
+                slideIndex
+            ) {
+
+                slide.classList.toggle(
+                    "active",
+                    slideIndex === index
+                );
+
+            });
+
+
+            indicators.forEach(function (
+                indicator,
+                indicatorIndex
+            ) {
+
+                indicator.classList.toggle(
+                    "active",
+                    indicatorIndex === index
+                );
+
+            });
+
+
+            current =
+                index;
+
+        }
+
+
+        /*
+         * Jalankan slideshow setiap 10 detik.
+         */
+
+        function startSlideshow() {
+
+            stopSlideshow();
+
+
+            timer =
+                setInterval(function () {
+
+                    const next =
+                        (current + 1)
+                        % slides.length;
+
+
+                    showSlide(next);
+
+                }, 10000);
+
+        }
+
+
+        /*
+         * Hentikan timer.
+         */
+
+        function stopSlideshow() {
+
+            if (timer !== null) {
+
+                clearInterval(timer);
+
+                timer =
+                    null;
+
+            }
+
+        }
+
+
+        /*
+         * Mulai slideshow.
+         */
+
+        startSlideshow();
+
+
+        /*
+         * Hover desktop:
+         * slideshow tetap berjalan,
+         * tetapi gambar mendapatkan
+         * efek visual dari CSS.
+         */
+
+        cover.addEventListener(
+            "mouseenter",
+            function () {
+
+                startSlideshow();
+
+            }
+        );
+
+
+        cover.addEventListener(
+            "mouseleave",
+            function () {
+
+                startSlideshow();
+
+            }
+        );
+
+
+        /*
+         * Klik album:
+         * buka/tutup seluruh isi album.
+         */
+
+        function toggleAlbum() {
+
+            const isOpen =
+                album.classList.contains(
+                    "open"
+                );
+
+
+            document
+                .querySelectorAll(
+                    ".photo-album.open"
+                )
+                .forEach(function (otherAlbum) {
+
+                    if (
+                        otherAlbum !== album
+                    ) {
+
+                        otherAlbum.classList.remove(
+                            "open"
+                        );
+
+                    }
+
+                });
+
+
+            album.classList.toggle(
+                "open",
+                !isOpen
+            );
+
+
+            action.setAttribute(
+                "aria-label",
+                !isOpen
+                    ? "Close album"
+                    : "Open album"
+            );
+
+        }
+
+
+        action.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                toggleAlbum();
+
+            }
+        );
+
+
+        cover.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === action ||
+                    action.contains(event.target)
+                ) {
+
+                    return;
+
+                }
+
+
+                toggleAlbum();
+
+            }
+        );
+
+
+        /*
+         * Klik indikator untuk memilih
+         * foto secara manual.
+         */
+
+        indicators.forEach(function (
+            indicator,
+            index
+        ) {
+
+            indicator.addEventListener(
+                "click",
+                function (event) {
+
+                    event.stopPropagation();
+
+                    showSlide(index);
+
+                    startSlideshow();
+
+                }
+            );
+
+        });
+
+    });
+
+
+})();
+
+</script>
+
 
 </body>
 

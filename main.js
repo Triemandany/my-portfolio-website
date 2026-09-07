@@ -1,6 +1,6 @@
 /* =========================================================
    TRI EMANDANY PORTFOLIO
-   FINAL GLOBAL JAVASCRIPT
+   GLOBAL JAVASCRIPT
    ========================================================= */
 
 
@@ -8,38 +8,28 @@
    DOM
    ========================================================= */
 
-const body =
-    document.body;
+const body = document.body;
 
 const header =
-    document.querySelector(
-        ".site-header"
-    );
+    document.querySelector(".site-header");
 
 const menuToggle =
-    document.querySelector(
-        ".menu-toggle"
-    );
+    document.querySelector(".menu-toggle");
 
 const navigation =
-    document.querySelector(
-        ".navigation"
-    );
+    document.querySelector(".navigation");
 
 const navDropdown =
-    document.querySelector(
-        ".nav-dropdown"
-    );
+    document.querySelector(".nav-dropdown");
 
 const navDropdownButton =
-    document.querySelector(
-        ".nav-dropdown-button"
-    );
+    document.querySelector(".nav-dropdown-button");
+
+const navDropdownMenu =
+    document.querySelector(".nav-dropdown-menu");
 
 const sections =
-    document.querySelectorAll(
-        "main section[id]"
-    );
+    document.querySelectorAll("main section[id]");
 
 const navLinks =
     document.querySelectorAll(
@@ -51,10 +41,23 @@ const videoCategories =
         ".video-category"
     );
 
-const revealElements =
-    document.querySelectorAll(
-        ".reveal"
-    );
+const backToTop =
+    document.getElementById("backToTop");
+
+
+/* =========================================================
+   DEVICE CHECK
+   ========================================================= */
+
+function isMobileNavigation() {
+    return window.innerWidth <= 700;
+}
+
+function supportsHover() {
+    return window.matchMedia(
+        "(hover: hover) and (pointer: fine)"
+    ).matches;
+}
 
 
 /* =========================================================
@@ -63,127 +66,64 @@ const revealElements =
 
 function openMobileMenu() {
 
-    if (
-        !navigation ||
-        !menuToggle
-    ) {
+    if (!navigation || !menuToggle) {
         return;
     }
 
+    navigation.classList.add("open");
 
-    navigation.classList.add(
-        "open"
-    );
-
-
-    menuToggle.classList.add(
-        "open"
-    );
-
+    menuToggle.classList.add("open");
 
     menuToggle.setAttribute(
         "aria-expanded",
         "true"
     );
 
-
-    menuToggle.setAttribute(
-        "aria-label",
-        "Close navigation"
-    );
-
-
-    body.classList.add(
-        "menu-open"
-    );
-
+    body.classList.add("menu-open");
 }
 
 
 function closeMobileMenu() {
 
-    if (
-        !navigation ||
-        !menuToggle
-    ) {
+    if (!navigation || !menuToggle) {
         return;
     }
 
+    navigation.classList.remove("open");
 
-    navigation.classList.remove(
-        "open"
-    );
-
-
-    menuToggle.classList.remove(
-        "open"
-    );
-
+    menuToggle.classList.remove("open");
 
     menuToggle.setAttribute(
         "aria-expanded",
         "false"
     );
 
-
-    menuToggle.setAttribute(
-        "aria-label",
-        "Open navigation"
-    );
+    body.classList.remove("menu-open");
+}
 
 
-    body.classList.remove(
-        "menu-open"
-    );
+function toggleMobileMenu() {
 
+    if (!navigation) {
+        return;
+    }
+
+    const isOpen =
+        navigation.classList.contains(
+            "open"
+        );
+
+    if (isOpen) {
+        closeMobileMenu();
+    } else {
+        openMobileMenu();
+    }
 }
 
 
 menuToggle?.addEventListener(
     "click",
-    () => {
-
-        const isOpen =
-            navigation?.classList.contains(
-                "open"
-            );
-
-
-        if (isOpen) {
-
-            closeMobileMenu();
-
-        } else {
-
-            openMobileMenu();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   NAVIGATION LINKS
-   ========================================================= */
-
-navigation?.querySelectorAll(
-    "a"
-).forEach(
-    (link) => {
-
-        link.addEventListener(
-            "click",
-            () => {
-
-                closeMobileMenu();
-
-                closePortfolioDropdown();
-
-            }
-        );
-
-    }
+    toggleMobileMenu
 );
 
 
@@ -200,17 +140,12 @@ function openPortfolioDropdown() {
         return;
     }
 
-
-    navDropdown.classList.add(
-        "open"
-    );
-
+    navDropdown.classList.add("open");
 
     navDropdownButton.setAttribute(
         "aria-expanded",
         "true"
     );
-
 }
 
 
@@ -223,70 +158,158 @@ function closePortfolioDropdown() {
         return;
     }
 
-
-    navDropdown.classList.remove(
-        "open"
-    );
-
+    navDropdown.classList.remove("open");
 
     navDropdownButton.setAttribute(
         "aria-expanded",
         "false"
     );
+}
 
+
+function togglePortfolioDropdown(event) {
+
+    if (!navDropdown) {
+        return;
+    }
+
+    event?.preventDefault();
+
+    event?.stopPropagation();
+
+    const isOpen =
+        navDropdown.classList.contains(
+            "open"
+        );
+
+    if (isOpen) {
+
+        closePortfolioDropdown();
+
+    } else {
+
+        openPortfolioDropdown();
+
+    }
 }
 
 
 navDropdownButton?.addEventListener(
     "click",
-    (event) => {
-
-        event.stopPropagation();
-
-
-        const isOpen =
-            navDropdown.classList.contains(
-                "open"
-            );
-
-
-        if (isOpen) {
-
-            closePortfolioDropdown();
-
-        } else {
-
-            openPortfolioDropdown();
-
-        }
-
-    }
+    togglePortfolioDropdown
 );
 
 
 /* =========================================================
-   DESKTOP PORTFOLIO HOVER
+   DESKTOP HOVER
    ========================================================= */
 
-if (
-    navDropdown &&
-    window.matchMedia(
-        "(hover:hover) and (pointer:fine)"
-    ).matches
-) {
+if (navDropdown) {
 
     navDropdown.addEventListener(
         "mouseenter",
-        openPortfolioDropdown
+        () => {
+
+            if (
+                !isMobileNavigation() &&
+                supportsHover()
+            ) {
+
+                openPortfolioDropdown();
+
+            }
+
+        }
     );
 
 
     navDropdown.addEventListener(
         "mouseleave",
-        closePortfolioDropdown
+        () => {
+
+            if (
+                !isMobileNavigation() &&
+                supportsHover()
+            ) {
+
+                setTimeout(
+                    () => {
+
+                        if (
+                            !navDropdown.matches(
+                                ":hover"
+                            )
+                        ) {
+
+                            closePortfolioDropdown();
+
+                        }
+
+                    },
+                    150
+                );
+
+            }
+
+        }
     );
 
 }
+
+
+/* =========================================================
+   PORTFOLIO SUBMENU LINKS
+   ========================================================= */
+
+if (navDropdownMenu) {
+
+    navDropdownMenu
+        .querySelectorAll("a")
+        .forEach((link) => {
+
+            link.addEventListener(
+                "click",
+                (event) => {
+
+                    /*
+                     * Do NOT preventDefault.
+                     * Browser must navigate normally.
+                     */
+
+                    event.stopPropagation();
+
+                    closePortfolioDropdown();
+
+                    closeMobileMenu();
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   ALL NAVIGATION LINKS
+   ========================================================= */
+
+navigation
+    ?.querySelectorAll("a")
+    .forEach((link) => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                closeMobileMenu();
+
+                closePortfolioDropdown();
+
+            }
+        );
+
+    });
 
 
 /* =========================================================
@@ -297,11 +320,18 @@ document.addEventListener(
     "click",
     (event) => {
 
+        const target =
+            event.target;
+
+
+        /*
+         * Close Portfolio dropdown
+         * when clicking outside.
+         */
+
         if (
             navDropdown &&
-            !navDropdown.contains(
-                event.target
-            )
+            !navDropdown.contains(target)
         ) {
 
             closePortfolioDropdown();
@@ -309,18 +339,19 @@ document.addEventListener(
         }
 
 
+        /*
+         * Close mobile navigation
+         * when clicking outside.
+         */
+
         if (
             navigation &&
             menuToggle &&
             navigation.classList.contains(
                 "open"
             ) &&
-            !navigation.contains(
-                event.target
-            ) &&
-            !menuToggle.contains(
-                event.target
-            )
+            !navigation.contains(target) &&
+            !menuToggle.contains(target)
         ) {
 
             closeMobileMenu();
@@ -340,7 +371,6 @@ function updateHeader() {
     if (!header) {
         return;
     }
-
 
     header.classList.toggle(
         "scrolled",
@@ -372,13 +402,11 @@ function updateActiveNavigation() {
         return;
     }
 
-
     let currentSection =
         sections[0]?.id ||
         "home";
 
-
-    const position =
+    const scrollPosition =
         window.scrollY + 220;
 
 
@@ -386,7 +414,7 @@ function updateActiveNavigation() {
         (section) => {
 
             if (
-                position >=
+                scrollPosition >=
                 section.offsetTop
             ) {
 
@@ -407,19 +435,15 @@ function updateActiveNavigation() {
                     "href"
                 );
 
-
-            if (
-                !href ||
-                !href.startsWith("#")
-            ) {
-                return;
-            }
-
+            const targetId =
+                href?.startsWith("#")
+                    ? href.substring(1)
+                    : "";
 
             link.classList.toggle(
                 "active",
-                href ===
-                `#${currentSection}`
+                targetId ===
+                currentSection
             );
 
         }
@@ -452,59 +476,35 @@ document
                 "click",
                 (event) => {
 
-                    const targetID =
-                        link.getAttribute(
-                            "href"
-                        );
+                    const targetId =
+                        link
+                            .getAttribute(
+                                "href"
+                            )
+                            ?.substring(1);
 
-
-                    if (
-                        !targetID ||
-                        targetID === "#"
-                    ) {
+                    if (!targetId) {
                         return;
                     }
 
-
                     const target =
-                        document.querySelector(
-                            targetID
+                        document.getElementById(
+                            targetId
                         );
-
 
                     if (!target) {
                         return;
                     }
 
-
                     event.preventDefault();
 
+                    closeMobileMenu();
 
-                    const headerHeight =
-                        header?.offsetHeight ||
-                        0;
+                    closePortfolioDropdown();
 
-
-                    const targetPosition =
-                        target
-                            .getBoundingClientRect()
-                            .top
-                        +
-                        window.scrollY
-                        -
-                        headerHeight
-                        -
-                        12;
-
-
-                    window.scrollTo({
-
-                        top:
-                            targetPosition,
-
-                        behavior:
-                            "smooth"
-
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
                     });
 
                 }
@@ -515,99 +515,25 @@ document
 
 
 /* =========================================================
-   SCROLL REVEAL
-   ========================================================= */
-
-function initializeReveal() {
-
-    if (
-        !revealElements.length
-    ) {
-        return;
-    }
-
-
-    if (
-        !(
-            "IntersectionObserver"
-            in window
-        )
-    ) {
-
-        revealElements.forEach(
-            (element) => {
-
-                element.classList.add(
-                    "visible"
-                );
-
-            }
-        );
-
-        return;
-    }
-
-
-    const observer =
-        new IntersectionObserver(
-            (
-                entries,
-                currentObserver
-            ) => {
-
-                entries.forEach(
-                    (entry) => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "visible"
-                            );
-
-
-                            currentObserver.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold:
-                    .12,
-
-                rootMargin:
-                    "0px 0px -40px 0px"
-            }
-        );
-
-
-    revealElements.forEach(
-        (element) => {
-
-            observer.observe(
-                element
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   VIDEO CATEGORY ACCORDION
+   VIDEO PROJECT ACCORDION
    ========================================================= */
 
 function closeAllVideoCategories() {
 
     videoCategories.forEach(
         (category) => {
+
+            /*
+             * Work Project uses popup,
+             * not accordion.
+             */
+
+            if (
+                category.dataset.category ===
+                "work"
+            ) {
+                return;
+            }
 
             category.classList.remove(
                 "open"
@@ -640,6 +566,21 @@ function openVideoCategory(
     }
 
 
+    /*
+     * Work Project uses popup.
+     */
+
+    if (
+        category.dataset.category ===
+        "work"
+    ) {
+        return;
+    }
+
+
+    closeAllVideoCategories();
+
+
     category.classList.add(
         "open"
     );
@@ -662,6 +603,20 @@ function openVideoCategory(
 videoCategories.forEach(
     (category) => {
 
+        /*
+         * IMPORTANT:
+         * Work Project is handled
+         * by popup below.
+         */
+
+        if (
+            category.dataset.category ===
+            "work"
+        ) {
+            return;
+        }
+
+
         const heading =
             category.querySelector(
                 ".video-category-heading"
@@ -678,10 +633,18 @@ videoCategories.forEach(
                     );
 
 
-                closeAllVideoCategories();
+                if (wasOpen) {
 
+                    category.classList.remove(
+                        "open"
+                    );
 
-                if (!wasOpen) {
+                    heading.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                } else {
 
                     openVideoCategory(
                         category
@@ -697,7 +660,329 @@ videoCategories.forEach(
 
 
 /* =========================================================
-   VIDEO CAROUSEL
+   WORK PROJECT SOURCE POPUP
+   ========================================================= */
+
+const workProjectCategory =
+    document.querySelector(
+        ".work-project-category"
+    );
+
+const workProjectTrigger =
+    document.querySelector(
+        ".work-project-trigger"
+    );
+
+const workProjectModal =
+    document.querySelector(
+        ".work-project-modal"
+    );
+
+const workProjectModalBackdrop =
+    document.querySelector(
+        ".work-project-modal-backdrop"
+    );
+
+const workProjectModalClose =
+    document.querySelector(
+        ".work-project-modal-close"
+    );
+
+const workProjectOptions =
+    document.querySelectorAll(
+        ".work-project-option"
+    );
+
+const workSourceDropdowns =
+    document.querySelectorAll(
+        ".work-source-dropdown"
+    );
+
+const workSourceCloseButtons =
+    document.querySelectorAll(
+        "[data-close-work-source]"
+    );
+
+
+/* =========================================================
+   CLOSE WORK SOURCE
+   ========================================================= */
+
+function closeAllWorkSources() {
+
+    workSourceDropdowns.forEach(
+        (panel) => {
+
+            panel.hidden = true;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   OPEN WORK MODAL
+   ========================================================= */
+
+function openWorkProjectModal() {
+
+    if (
+        !workProjectModal ||
+        !workProjectTrigger
+    ) {
+        return;
+    }
+
+
+    closeAllVideoCategories();
+
+    closeAllWorkSources();
+
+
+    workProjectModal.classList.add(
+        "is-open"
+    );
+
+
+    workProjectModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    workProjectTrigger.setAttribute(
+        "aria-expanded",
+        "true"
+    );
+
+
+    body.classList.add(
+        "work-modal-open"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE WORK MODAL
+   ========================================================= */
+
+function closeWorkProjectModal() {
+
+    if (
+        !workProjectModal ||
+        !workProjectTrigger
+    ) {
+        return;
+    }
+
+
+    workProjectModal.classList.remove(
+        "is-open"
+    );
+
+
+    workProjectModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    workProjectTrigger.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+
+    body.classList.remove(
+        "work-modal-open"
+    );
+
+}
+
+
+/* =========================================================
+   OPEN WORK SOURCE
+   ========================================================= */
+
+function openWorkSource(
+    source
+) {
+
+    if (!source) {
+        return;
+    }
+
+
+    closeAllVideoCategories();
+
+    closeAllWorkSources();
+
+    closeWorkProjectModal();
+
+
+    const activePanel =
+        document.querySelector(
+            '[data-work-panel="' +
+            source +
+            '"]'
+        );
+
+
+    if (!activePanel) {
+        return;
+    }
+
+
+    activePanel.hidden = false;
+
+
+    /*
+     * Re-process Instagram embeds
+     * after panel becomes visible.
+     */
+
+    if (
+        source === "kantah" &&
+        window.instgrm &&
+        window.instgrm.Embeds
+    ) {
+
+        window.instgrm.Embeds.process();
+
+    }
+
+
+    /*
+     * Scroll to selected source.
+     */
+
+    setTimeout(
+        () => {
+
+            activePanel.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        },
+        100
+    );
+
+}
+
+
+/* =========================================================
+   WORK PROJECT TRIGGER
+   ========================================================= */
+
+workProjectTrigger?.addEventListener(
+    "click",
+    (event) => {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+        openWorkProjectModal();
+
+    }
+);
+
+
+/* =========================================================
+   WORK MODAL BACKDROP
+   ========================================================= */
+
+workProjectModalBackdrop?.addEventListener(
+    "click",
+    () => {
+
+        closeWorkProjectModal();
+
+    }
+);
+
+
+/* =========================================================
+   WORK MODAL CLOSE
+   ========================================================= */
+
+workProjectModalClose?.addEventListener(
+    "click",
+    () => {
+
+        closeWorkProjectModal();
+
+    }
+);
+
+
+/* =========================================================
+   WORK SOURCE OPTIONS
+   ========================================================= */
+
+workProjectOptions.forEach(
+    (option) => {
+
+        option.addEventListener(
+            "click",
+            (event) => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                const source =
+                    option.dataset.workSource;
+
+
+                openWorkSource(
+                    source
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   WORK SOURCE CLOSE
+   ========================================================= */
+
+workSourceCloseButtons.forEach(
+    (button) => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                closeAllWorkSources();
+
+                if (
+                    workProjectCategory
+                ) {
+
+                    workProjectCategory.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   HORIZONTAL VIDEO CAROUSEL
    ========================================================= */
 
 function initializeVideoCarousels() {
@@ -717,13 +1002,13 @@ function initializeVideoCarousels() {
                 );
 
 
-            const previous =
+            const previousButton =
                 carousel.querySelector(
                     ".carousel-prev"
                 );
 
 
-            const next =
+            const nextButton =
                 carousel.querySelector(
                     ".carousel-next"
                 );
@@ -772,36 +1057,30 @@ function initializeVideoCarousels() {
             }
 
 
-            previous?.addEventListener(
+            previousButton?.addEventListener(
                 "click",
                 () => {
 
                     track.scrollBy({
-
                         left:
                             -getScrollAmount(),
-
                         behavior:
                             "smooth"
-
                     });
 
                 }
             );
 
 
-            next?.addEventListener(
+            nextButton?.addEventListener(
                 "click",
                 () => {
 
                     track.scrollBy({
-
                         left:
                             getScrollAmount(),
-
                         behavior:
                             "smooth"
-
                     });
 
                 }
@@ -809,8 +1088,7 @@ function initializeVideoCarousels() {
 
 
             /*
-             * Desktop mouse-wheel
-             * horizontal scrolling.
+             * Desktop mouse wheel
              */
 
             track.addEventListener(
@@ -845,8 +1123,7 @@ function initializeVideoCarousels() {
 
                 },
                 {
-                    passive:
-                        false
+                    passive: false
                 }
             );
 
@@ -857,7 +1134,7 @@ function initializeVideoCarousels() {
 
 
 /* =========================================================
-   IMAGE FALLBACK
+   IMAGE ERROR HANDLING
    ========================================================= */
 
 document
@@ -875,9 +1152,10 @@ document
                         "none";
 
 
-                    image.parentElement?.classList.add(
-                        "image-error"
-                    );
+                    image.parentElement
+                        ?.classList.add(
+                            "image-error"
+                        );
 
                 }
             );
@@ -901,15 +1179,57 @@ document
                         "none";
 
 
-                    image.parentElement?.classList.add(
-                        "image-error"
-                    );
+                    image.parentElement
+                        ?.classList.add(
+                            "image-error"
+                        );
 
                 }
             );
 
         }
     );
+
+
+/* =========================================================
+   BACK TO TOP
+   ========================================================= */
+
+function updateBackToTop() {
+
+    if (!backToTop) {
+        return;
+    }
+
+
+    backToTop.classList.toggle(
+        "show",
+        window.scrollY > 500
+    );
+
+}
+
+
+backToTop?.addEventListener(
+    "click",
+    () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+);
+
+
+window.addEventListener(
+    "scroll",
+    updateBackToTop,
+    {
+        passive: true
+    }
+);
 
 
 /* =========================================================
@@ -921,8 +1241,7 @@ document.addEventListener(
     (event) => {
 
         if (
-            event.key !==
-            "Escape"
+            event.key !== "Escape"
         ) {
             return;
         }
@@ -934,12 +1253,16 @@ document.addEventListener(
 
         closeAllVideoCategories();
 
+        closeWorkProjectModal();
+
+        closeAllWorkSources();
+
     }
 );
 
 
 /* =========================================================
-   RESIZE
+   RESPONSIVE RESET
    ========================================================= */
 
 let resizeTimer;
@@ -979,10 +1302,10 @@ window.addEventListener(
    INITIALIZE
    ========================================================= */
 
-initializeReveal();
-
-initializeVideoCarousels();
-
 updateHeader();
 
 updateActiveNavigation();
+
+updateBackToTop();
+
+initializeVideoCarousels();

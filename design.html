@@ -15,16 +15,39 @@
         content="Tri Emandany — Design Portfolio"
     >
 
+    <meta
+        name="author"
+        content="Tri Emandany"
+    >
+
     <title>
         Design Portfolio — Tri Emandany
     </title>
 
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
 
 <body>
+
 
 <header class="site-header">
 
@@ -33,8 +56,9 @@
         <a
             href="index.html"
             class="logo"
+            aria-label="Tri Emandany Home"
         >
-            TE.
+            TE<span>.</span>
         </a>
 
 
@@ -70,12 +94,40 @@
                 Projects
             </a>
 
-            <a
-                href="design.html"
-                class="active"
-            >
-                Portfolio
-            </a>
+
+            <div class="nav-dropdown">
+
+                <button
+                    class="nav-dropdown-button"
+                    type="button"
+                    aria-expanded="false"
+                >
+                    Portfolio
+                    <span>⌄</span>
+                </button>
+
+
+                <div class="nav-dropdown-menu">
+
+                    <a
+                        href="design.html"
+                        class="active"
+                    >
+                        Design
+                    </a>
+
+                    <a href="video.html">
+                        Video
+                    </a>
+
+                    <a href="documentation.html">
+                        Documentation
+                    </a>
+
+                </div>
+
+            </div>
+
 
             <a href="index.html#contact">
                 Contact
@@ -88,97 +140,288 @@
 </header>
 
 
+
 <main>
 
-    <section class="portfolio-page-header">
 
-        <div class="container">
+<section class="portfolio-page-header">
 
-            <p class="section-label">
-                PORTFOLIO / DESIGN
-            </p>
+    <div class="container">
 
-            <h1>
-                Visual design
-                <em>with purpose.</em>
-            </h1>
+        <p class="section-label">
+            PORTFOLIO / DESIGN
+        </p>
+
+
+        <h1>
+            Visuals with
+            <em>purpose.</em>
+        </h1>
+
+
+        <p>
+            A focused selection of visual design work
+            created for promotional communication,
+            branding, and visual identity.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<section class="design-showcase">
+
+    <div class="container">
+
+
+        <div class="design-intro">
+
+            <div>
+
+                <span>
+                    SELECTED WORK
+                </span>
+
+                <h2>
+                    Two pieces.
+                    <em>One visual language.</em>
+                </h2>
+
+            </div>
+
 
             <p>
-                A collection of posters, social media
-                designs, visual communication, and
-                UI/UX projects.
+                A concise selection of graphic design
+                work highlighting composition,
+                typography, visual hierarchy,
+                and brand identity.
             </p>
 
         </div>
 
-    </section>
 
 
-    <section class="section portfolio-gallery">
+        <div class="design-grid">
 
-        <div class="container">
 
-            <!-- Design projects will be added here -->
+            <article class="design-card design-card-poster">
 
-            <div class="gallery-grid">
+                <div class="design-image-pair">
 
-                <article class="gallery-item">
-                    <div class="gallery-placeholder">
-                        DESIGN 01
-                    </div>
 
-                    <div class="gallery-info">
-                        <h2>
-                            Design Project
-                        </h2>
+                    <figure class="poster-item">
+
+                        <img
+                            src="assets/design/poster_menu.png"
+                            alt="Poster menu design 01 by Tri Emandany"
+                            loading="lazy"
+                        >
+
+                        <figcaption>
+                            01
+                        </figcaption>
+
+                    </figure>
+
+
+                    <figure class="poster-item">
+
+                        <img
+                            src="assets/design/poster_menu1.png"
+                            alt="Poster menu design 02 by Tri Emandany"
+                            loading="lazy"
+                        >
+
+                        <figcaption>
+                            02
+                        </figcaption>
+
+                    </figure>
+
+
+                </div>
+
+
+                <div class="design-info">
+
+                    <div>
+
+                        <span>
+                            GRAPHIC DESIGN
+                        </span>
+
+                        <h3>
+                            Poster Menu
+                        </h3>
 
                         <p>
-                            Category / Description
+                            Two menu poster compositions
+                            presented as one visual set,
+                            focusing on readability,
+                            hierarchy, and promotional appeal.
                         </p>
-                    </div>
-                </article>
 
-
-                <article class="gallery-item">
-                    <div class="gallery-placeholder">
-                        DESIGN 02
                     </div>
 
-                    <div class="gallery-info">
-                        <h2>
-                            Design Project
-                        </h2>
+
+                    <span class="design-number">
+                        01
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="design-card">
+
+                <div class="design-image design-image-logo">
+
+                    <img
+                        src="assets/logos/teenx.png"
+                        alt="Logo design by Tri Emandany"
+                        loading="lazy"
+                    >
+
+
+                    <div class="design-overlay">
+
+                        <span>
+                            LOGO DESIGN
+                        </span>
+
+                        <strong>
+                            02
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="design-info">
+
+                    <div>
+
+                        <span>
+                            BRANDING
+                        </span>
+
+                        <h3>
+                            Logo Design
+                        </h3>
 
                         <p>
-                            Category / Description
+                            A logo concept focused on
+                            simplicity, recognizability,
+                            and visual identity.
                         </p>
-                    </div>
-                </article>
 
-
-                <article class="gallery-item">
-                    <div class="gallery-placeholder">
-                        DESIGN 03
                     </div>
 
-                    <div class="gallery-info">
-                        <h2>
-                            Design Project
-                        </h2>
 
-                        <p>
-                            Category / Description
-                        </p>
-                    </div>
-                </article>
+                    <span class="design-number">
+                        02
+                    </span>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="design-note">
+
+    <div class="container">
+
+        <div class="design-note-inner">
+
+            <span>
+                DESIGN APPROACH
+            </span>
+
+            <h2>
+                Keep it clear.
+                Make it
+                <em>
+                    memorable.
+                </em>
+            </h2>
+
+            <p>
+                I approach visual design by balancing
+                composition, typography, readability,
+                and visual impact to make information
+                easier to understand and remember.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="video-cta">
+
+    <div class="container">
+
+        <div class="video-cta-content">
+
+            <p class="section-label">
+                MORE WORK
+            </p>
+
+            <h2>
+                Explore my
+                <em>other portfolios.</em>
+            </h2>
+
+            <p>
+                Browse my video projects and
+                documentation work.
+            </p>
+
+
+            <div class="video-cta-buttons">
+
+                <a
+                    href="video.html"
+                    class="button button-secondary"
+                >
+                    View Video ↗
+                </a>
+
+
+                <a
+                    href="documentation.html"
+                    class="button button-secondary"
+                >
+                    View Documentation ↗
+                </a>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
+
 
 </main>
+
 
 
 <footer>
@@ -186,16 +429,28 @@
     <div class="container footer-content">
 
         <p>
-            © 2026 Tri Emandany.
+            © 2026 Tri Emandany. All rights reserved.
         </p>
-
-        <a href="index.html">
-            ← Back to Home
-        </a>
 
     </div>
 
 </footer>
+
+
+
+<a
+    href="index.html"
+    class="floating-navigation floating-home-only"
+    aria-label="Back to Home"
+    title="Back to Home"
+>
+
+    <span class="floating-nav-button">
+        <span class="floating-nav-icon">←</span>
+        <span>Back to Home</span>
+    </span>
+
+</a>
 
 
 <script src="main.js"></script>
